@@ -15,9 +15,13 @@ function App() {
     }
 
     const fetchUrl = async () => {
-      const response = await fetch(getFetchUrl());
-      const data = await response.json();
-      return data;
+      try {
+        const response = await fetch(getFetchUrl());
+        const data = await response.json();
+        return data;
+      } catch(err) {
+        alert(err)
+      }
     }
 
     setIpData(fetchUrl());
@@ -26,6 +30,12 @@ function App() {
 
   const setIpAddress = (address) => {
     setSearchAddress(address);
+    resetInput();
+  }
+
+  const resetInput = () => {
+    const input = document.getElementById('ipinput');
+    input.textContent = '';
   }
 
   const getCenter = (ipData) => {
@@ -40,8 +50,10 @@ function App() {
     <>
       <Background />
       <Map center={getCenter} />
-      <Search submit={setIpAddress} />
-      <Display data={ipData} />
+      <div id="display-container">
+        <Search submit={setIpAddress} />
+        <Display data={ipData} />
+      </div>
     </>
   );
 }
