@@ -28,7 +28,7 @@ function App() {
 
   }, [searchAddress])
 
-  const setIpAddress = (address) => {
+  const handleIpAddress = (address) => {
     setSearchAddress(address);
     resetInput();
   }
@@ -51,7 +51,7 @@ function App() {
       <Background />
       <Map center={getCenter} />
       <div id="display-container">
-        <Search submit={setIpAddress} />
+        <Search submit={handleIpAddress} />
         <Display data={ipData} />
       </div>
     </>
