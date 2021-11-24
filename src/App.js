@@ -7,11 +7,13 @@ import Display from './components/Display';
 
 function App() {
   const [ipData, setIpData] = useState([]);
-  const [searchAddress, setSearchAddress] = useState('216.15.114.188');
+  const [searchAddress, setSearchAddress] = useState('0.0.0.0');
 
+  // Write fetchURL as indy function and call it once with useEffect
+  // on initial load
   useEffect(() => {
     const getFetchUrl = () => {
-      return 'http://api.ipstack.com/' + searchAddress + '?access_key=0370214eef5cb481e92e4b97089eb78a&format=1';
+      return 'api.ipstack.com/' + searchAddress + '?access_key=0370214eef5cb481e92e4b97089eb78a';
     }
 
     const fetchUrl = async () => {
@@ -25,8 +27,9 @@ function App() {
     }
 
     setIpData(fetchUrl());
+    console.log(ipData);
 
-  }, [searchAddress])
+  })
 
   const handleIpAddress = (address) => {
     setSearchAddress(address);
