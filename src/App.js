@@ -6,33 +6,32 @@ import Search from './components/Search';
 import Display from './components/Display';
 
 function App() {
-  const [ipData, setIpData] = useState([]);
-  const [searchAddress, setSearchAddress] = useState('0.0.0.0');
+  const [ipData, setIpData] = useState({
+    jsonReturnedValue: null  
+  });
+  const [searchAddress, setSearchAddress] = useState('161.185.160.93');
 
-  // Write fetchURL as indy function and call it once with useEffect
-  // on initial load
+  const fetchIpData = async () => {
+    try {
+      const url = 'api.ipstack.com/' + searchAddress + '?access_key=0370214eef5cb481e92e4b97089eb78a';
+      console.log(url);
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      setIpData(jsonData);
+    } catch(err) {
+      alert(err)
+    }
+  }
+
   useEffect(() => {
-    const getFetchUrl = () => {
-      return 'api.ipstack.com/' + searchAddress + '?access_key=0370214eef5cb481e92e4b97089eb78a';
-    }
-
-    const fetchUrl = async () => {
-      try {
-        const response = await fetch(getFetchUrl());
-        const data = await response.json();
-        return data;
-      } catch(err) {
-        alert(err)
-      }
-    }
-
-    setIpData(fetchUrl());
+    fetchIpData();
     console.log(ipData);
-
-  })
-
-  const handleIpAddress = (address) => {
+  }, [])
+ 
+  const handleSearch = () => {
+    const address = document.getElementById('ipinput').value;
     setSearchAddress(address);
+    setIpData(fetchIpData);
     resetInput();
   }
 
@@ -54,7 +53,7 @@ function App() {
       <Background />
       <Map center={getCenter} />
       <div id="display-container">
-        <Search submit={handleIpAddress} />
+        <Search submit={handleSearch} />
         <Display data={ipData} />
       </div>
     </>
