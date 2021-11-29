@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Geocoder from './components/Geocoder';
+import { fetchApi } from './components/Geocoder';
 import Background from './components/Background';
 import Map from './components/Map';
 import Search from './components/Search';
@@ -11,7 +11,7 @@ function App() {
   const [searchAddress, setSearchAddress] = useState('161.185.160.93');
 
   const handleFetch = async () => {
-    const res = await Geocoder.geocode(searchAddress);
+    const res = await fetchApi(searchAddress);
     setIpData(res);
   }
 
@@ -32,21 +32,18 @@ function App() {
     input.textContent = '';
   }
 
-  const getCenter = (ipData) => {
-    const center = {
-      lat: ipData.jsonReturnedValue.latitude,
-      lng: ipData.jsonReturnedValue.longitude
-    };
-    return center;
-  }
+  const center = {
+    lat: ipData.latitude,
+    lng: ipData.longitude
+  };
   
   return (
     <>
       <Background />
-      <Map center={getCenter} />
+      <Map center={center} />
       <div id="display-container">
         <Search submit={handleSearch} />
-        <Display data={ipData.jsonReturnedValue} />
+        <Display data={ipData} />
       </div>
     </>
   );
