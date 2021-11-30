@@ -1,6 +1,16 @@
 import React from 'react';
 
-const Search = ({ submit }) => {
+const Search = ({ handleFetch }) => {
+
+  const handleSubmit = () => {
+    handleFetch();
+    resetInput();
+  }
+
+  const resetInput = () => {
+    const input = document.getElementById('ipinput');
+    input.value = '';
+  }
   return (
     <>
       <div id="title">
@@ -8,7 +18,7 @@ const Search = ({ submit }) => {
       </div>
       <div id="search-container">
         <input type="text" id="ipinput" name="ipinput" />
-        <button id="search-btn" onClick={submit} />
+        <button id="search-btn" onClick={handleSubmit} />
       </div>
     </>
   );

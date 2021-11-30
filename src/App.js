@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { fetchApi } from './components/Geocoder';
 import Background from './components/Background';
 import Map from './components/Map';
 import Search from './components/Search';
@@ -8,41 +7,37 @@ import Display from './components/Display';
 
 function App() {
   const [ipData, setIpData] = useState([]);
-  const [searchAddress, setSearchAddress] = useState('161.185.160.93');
+  const [center, setCenter] = useState([]);
 
   const handleFetch = async () => {
-    const res = await fetchApi(searchAddress);
-    setIpData(res);
+    try {
+      const address = document.getElementById('ipinput').value;
+      const res = await fetch('http://ip-api.com/json/' + address);
+      const resJson = await res.json();
+      const centerValue = {
+        lat: resJson.lat,
+        lng: resJson.lon
+      };
+      setIpData(resJson);
+      setCenter(centerValue);
+    } catch {
+      alert('Please enter a valid IP address.');
+    }
   }
 
+  //try calling handlesubmit instead
   useEffect(() => {
     handleFetch();
-    console.log(ipData);
-  }, [])
- 
-  const handleSearch = () => {
-    const address = document.getElementById('ipinput').value;
-    setSearchAddress(address);
-    handleFetch();
-    resetInput();
-  }
+  }, []);
 
-  const resetInput = () => {
-    const input = document.getElementById('ipinput');
-    input.textContent = '';
-  }
-
-  const center = {
-    lat: ipData.latitude,
-    lng: ipData.longitude
-  };
-  
   return (
     <>
       <Background />
       <Map center={center} />
       <div id="display-container">
-        <Search submit={handleSearch} />
+        <Search
+          handleFetch={handleFetch}
+        />
         <Display data={ipData} />
       </div>
     </>
