@@ -1,5 +1,5 @@
 import React from 'react';
-import Line from './Line';
+import Line from './utils/Line';
 
 const Display = ({ data }) => {
   return (
@@ -11,7 +11,7 @@ const Display = ({ data }) => {
         <Line />
         <div className="display-module" id="timezone">{data.timezone}</div>
         <Line />
-        <div className="display-module" id="provider">{data.org}</div>
+        <div className="display-module" id="provider">{data.isp}</div>
       </div>
     </>
   );
