@@ -11,6 +11,7 @@ const Search = ({ handleFetch }) => {
     const input = document.getElementById('ipinput');
     input.value = '';
   }
+  
   return (
     <>
       <div id="title">

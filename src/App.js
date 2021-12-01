@@ -14,18 +14,16 @@ function App() {
       const address = document.getElementById('ipinput').value;
       const res = await fetch('http://ip-api.com/json/' + address);
       const resJson = await res.json();
-      const centerValue = {
+      setIpData(resJson);
+      setCenter({
         lat: resJson.lat,
         lng: resJson.lon
-      };
-      setIpData(resJson);
-      setCenter(centerValue);
+      });
     } catch {
       alert('Please enter a valid IP address.');
     }
   }
 
-  //try calling handlesubmit instead
   useEffect(() => {
     handleFetch();
   }, []);

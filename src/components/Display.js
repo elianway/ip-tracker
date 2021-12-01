@@ -1,12 +1,17 @@
 import React from 'react';
+import Line from './Line';
 
 const Display = ({ data }) => {
   return (
     <>
       <div id="display">
-        <div className="display-module" id="latlon">{data.lat}, <br/> {data.lon}</div>
+        <div className="display-module" id="query">{data.query}</div>
+        <Line />
         <div className="display-module" id="location">{data.city}, {data.region} {data.zip}</div>
-        <div className="display-module" id="country">{data.countryCode}</div>
+        <Line />
+        <div className="display-module" id="timezone">{data.timezone}</div>
+        <Line />
+        <div className="display-module" id="provider">{data.org}</div>
       </div>
     </>
   );
