@@ -13,15 +13,15 @@ const Search = ({ handleFetch }) => {
   }
   
   return (
-    <>
+    <div id="search-module">
       <div id="title">
         <h2 id="title-text">Ip Address Tracker</h2>
       </div>
-      <div id="search-container">
+      <div id="search-input">
         <input type="text" id="ipinput" name="ipinput" />
         <button id="search-btn" onClick={handleSubmit} />
       </div>
-    </>
+    </div>
   );
 };
 

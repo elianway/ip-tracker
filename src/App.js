@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <main>
       <Background />
       <Map center={center} />
       <div id="display-container">
@@ -38,7 +38,7 @@ function App() {
         />
         <Display data={ipData} />
       </div>
-    </>
+    </main>
   );
 }
 
